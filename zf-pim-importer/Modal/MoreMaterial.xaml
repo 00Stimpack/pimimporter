@@ -1,0 +1,1757 @@
+<Window
+    x:Class="ZFPimImporter.Tabs"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:ZFPimImporter.Views"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:ZFPimImporter"
+    xmlns:mdix="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:dataTypes="clr-namespace:ZFPimImporter.DataTypes"
+    xmlns:converters="clr-namespace:ZFPimImporter.Converters"
+    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    xmlns:events="clr-namespace:ZFPimImporter.Events"
+    xmlns:converters1="clr-namespace:ZFPimImporter.Converters"
+
+ 
+    mc:Ignorable="d"
+    Title="ZF Pim Importer"
+  
+    WindowStyle="ThreeDBorderWindow"
+    WindowStartupLocation="CenterScreen"
+    SizeToContent="WidthAndHeight"
+    Height="1055" 
+    Width="1215"
+    MaxHeight="1080"
+    MaxWidth="1940"
+    MinHeight="1025"
+    MinWidth="1215">
+
+    <Window.Resources>
+        <converters1:IsDarkConverter x:Key="IsDarkConverter" />
+
+        <converters1:EnabledLanguageToNameConverter x:Key="EnabledLanguageToNameConverter"/>
+        <converters1:EnabledLanguageToSubheadlineConverter x:Key="EnabledLanguageToSubheadlineConverter"/>
+
+        
+
+        
+
+        <Style x:Key="ChangeColorOnDarkCheckbox" TargetType="ToggleButton" BasedOn="{StaticResource MaterialDesignActionToggleButton}">
+            <Setter Property="Foreground" Value="Yellow" />
+            <Setter Property="Background" Value="Red" />
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Converter={StaticResource IsDarkConverter}}" Value="False"/>
+
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="Blue" />
+                    <Setter Property="Background" Value="Blue" />
+
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ChangeColorOnDarkBackground" TargetType="materialDesign:PackIcon">
+            <Setter Property="Background" Value="{DynamicResource  PrimaryHueMidBrush }" />
+
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Converter={StaticResource IsDarkConverter}}" Value="True"/>
+                    </MultiDataTrigger.Conditions>
+
+                    <Setter Property="Background" Value="{DynamicResource SecondaryHueLightBrush }" />
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ChangeColorOnDark" TargetType="mdix:PackIcon">
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidBrush}" />
+
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Converter={StaticResource IsDarkConverter}}" Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Foreground" Value="{DynamicResource SecondaryHueLightBrush }" />
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="solutionListViewItemStyle"
+               TargetType="ListViewItem"
+               BasedOn="{StaticResource MaterialDesignGridViewItem}"
+        >
+
+            <Style.Triggers>
+                <Trigger Property="Name" Value="ItsFirst">
+
+                    <Setter Property="FontWeight"
+                            Value="Bold"/>
+                    <Setter Property="Margin" 
+                            Value="0,0,0,0"/>
+
+                </Trigger>
+
+                <Trigger Property="Name" Value="ItsTen">
+
+                    <Setter Property="FontWeight"
+                            Value="Bold"/>
+                    <Setter Property="Margin" 
+                            Value="0,35,0,0"/>
+
+                </Trigger>
+
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="Name" Value="ItsEmpty"/>
+                    </MultiTrigger.Conditions>
+
+                    
+                    <Setter Property="FontStyle"
+                            Value="Oblique"/>
+                    <Setter Property="Margin" 
+                            Value="0,0,0,0"/>
+
+                </MultiTrigger>
+
+                <Trigger Property="Name" Value="ItsEmptyItsTen">
+
+                    <Setter Property="FontWeight"
+                            Value="Bold"/>
+                    <Setter Property="Margin" 
+                            Value="0,35,0,0"/>
+                    <Setter Property="FontStyle"
+                            Value="Oblique"/>
+
+                </Trigger>
+
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="productListViewItemStyle"
+               TargetType="ListViewItem"
+               BasedOn="{StaticResource MaterialDesignGridViewItem}"
+        >
+            <Style.Triggers>
+                <Trigger Property="Name" Value="ItsFucked">
+                    <Setter Property="Background" Value="#bfeaf9"/>
+                </Trigger>
+
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+
+                        <Condition Property="Name" Value="ItsFucked"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" 
+                            Value="#7fd5f3"/>
+                </MultiTrigger>
+
+            </Style.Triggers>
+        </Style>
+
+        <converters:NameTemplateSelector x:Key="NameTemplateSelector"/>
+        <converters:WindowWidthToTextBoxWidthConverter x:Key="WindowWidthToTextBoxWidthConverter"/>
+        <converters:WindowWidthToMenuWidthConverter x:Key="WindowWidthToMenuWidthConverter"/>
+        <converters:WindowWidthToStackPanelWidthConverter x:Key="WindowWidthToStackPanelWidthConverter"/>
+
+        <DataTemplate x:Key="NameTextDataChangeBox" >
+             
+            <DockPanel FlowDirection="LeftToRight"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                <DockPanel.Resources>
+                    <converters:SegmentsOrdinalConverter x:Key="SegmentsOrdinalConverter" />
+                    <converters:SegmentsOrdinalIconConverter x:Key="SegmentsOrdinalIconConverter" />
+                </DockPanel.Resources>
+                <StackPanel Orientation="Horizontal"
+                            d:DataContext="{ d:Binding path}"  
+                            Margin="-5,-8,-15,0"
+                            ToolTip="{x:Static dataTypes:FixedStrings.SelectedSegmentTooltip}"
+                            Height="20" 
+                            Width="20"
+                >
+                     
+                    <materialDesign:PackIcon
+
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource ChangeColorOnDark}"
+                        Margin="0,5,0,0"
+                        Kind="{Binding Converter={StaticResource ResourceKey=SegmentsOrdinalIconConverter},
+                          RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}}"
+
+                    ></materialDesign:PackIcon>
+
+                </StackPanel>
+       
+                <TextBox  
+                    Name="NameTextDataChangeBoxName"
+                    materialDesign:ColorZoneAssist.Mode="Dark"
+                    d:DataContext="{ d:Binding path}"   
+                    TextChanged="NameChanged"
+                    Height="23" 
+                    MinWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+                    Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter} , ConverterParameter='80,146,6,230'}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" 
+                    Padding="0,0,0,5" 
+                    Margin="20,-5,0,0" 
+                    Text="{Binding name}" 
+                >
+          
+                </TextBox>
+            </DockPanel>
+       
+        </DataTemplate>
+
+        <DataTemplate x:Key="NameLanguageTextDataChangeBox">
+            <DockPanel FlowDirection="LeftToRight"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                <DockPanel.Resources>
+                    <converters:SegmentsOrdinalConverter x:Key="SegmentsOrdinalConverter" />
+                    <converters:SegmentsOrdinalIconConverter x:Key="SegmentsOrdinalIconConverter" />
+                </DockPanel.Resources>
+                <StackPanel Orientation="Horizontal"
+                            Margin="-5,-8,-15,0"
+                            ToolTip="{x:Static dataTypes:FixedStrings.SelectedSegmentTooltip}"
+                            Height="20" 
+                            Width="20">
+                    <materialDesign:PackIcon
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource ChangeColorOnDark}"
+                        Margin="0,5,0,0"
+                        Kind="{Binding Converter={StaticResource ResourceKey=SegmentsOrdinalIconConverter},
+                          RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}}"
+
+                    ></materialDesign:PackIcon>
+
+                </StackPanel>
+                <TextBox  
+                    Name="NameLanguageTextDataChangeBoxName"
+                    materialDesign:ColorZoneAssist.Mode="Dark"
+                    d:DataContext="{ d:Binding path}"   
+                    TextChanged="NameChangedLanguage"
+                    Height="23" 
+                    MinWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+                    Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" 
+                    Padding="0,0,0,5" 
+                    Margin="20,-5,0,0" 
+                    Text="{Binding namelanguage}" 
+                />
+            </DockPanel>
+
+       
+        </DataTemplate>
+        
+        <!--<DataTemplate x:Key="NameTextDataChangeBox" >
+            <DockPanel FlowDirection="LeftToRight"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBox  
+                    Name="NameTextDataChangeBoxName"
+                    materialDesign:ColorZoneAssist.Mode="Dark"
+                    d:DataContext="{ d:Binding path}"   
+                    TextChanged="NameChanged"
+                    Height="23" 
+                    MinWidth="230" 
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" 
+                    Padding="0,0,0,5" 
+                    Margin="20,-5,0,0" 
+                    Text="{Binding name}" 
+                >
+          
+                </TextBox>
+            </DockPanel>
+       
+        </DataTemplate>
+
+        <DataTemplate x:Key="NameLanguageTextDataChangeBox">
+            <DockPanel FlowDirection="LeftToRight"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBox  
+                    Name="NameLanguageTextDataChangeBoxName"
+                    materialDesign:ColorZoneAssist.Mode="Dark"
+                    d:DataContext="{ d:Binding path}"   
+                    TextChanged="NameChangedLanguage"
+                    Height="23" 
+                    MinWidth="230" 
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" 
+                    Padding="0,0,0,5" 
+                    Margin="20,-5,0,0" 
+                    Text="{Binding namelanguage}" 
+                />
+            </DockPanel>
+
+       
+        </DataTemplate>-->
+
+        <converters:SubheadlineTemplateSelector0 x:Key="SubheadlineTemplateSelector0"/>
+        <converters:SubheadlineTemplateSelector1 x:Key="SubheadlineTemplateSelector1"/>
+        <converters:SubheadlineTemplateSelector2 x:Key="SubheadlineTemplateSelector2"/>
+        <converters:SubheadlineTemplateSelector3 x:Key="SubheadlineTemplateSelector3"/>
+        <converters:SubheadlineTemplateSelector4 x:Key="SubheadlineTemplateSelector4"/>
+
+        
+        <DataTemplate  x:Key="SubheadlineTextDataChangeBox0">
+            <TextBox materialDesign:ColorZoneAssist.Mode="Light"
+                     d:DataContext="{d:Binding path}"
+                     TextChanged="SubeheadlineChanged0"
+                     Height="23"
+                     MinWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+                     Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+
+             
+                     Padding="0,0,0,5"
+                     Margin="20,-5,0,0"
+                     Text="{Binding subheadline[0]}">
+            </TextBox>
+        </DataTemplate>
+
+        <DataTemplate  x:Key="SubheadlineLanguageTextDataChangeBox0">
+            <TextBox materialDesign:ColorZoneAssist.Mode="Light"
+                     d:DataContext="{d:Binding path}"
+                     TextChanged="SubeheadlineLanguageChanged0"
+                     Height="23"
+                     MinWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+                     Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+
+                     Padding="0,0,0,5"
+                     Margin="20,-5,0,0"
+                     Text="{Binding subheadlinelanguage[0]}">
+            </TextBox>
+        </DataTemplate>
+
+        <DataTemplate  x:Key="SubheadlineTextDataChangeBox1">
+            <TextBox materialDesign:ColorZoneAssist.Mode="Light"
+                     d:DataContext="{d:Binding path}"
+                     TextChanged="SubeheadlineChanged1"
+                     Height="23"
+                     MinWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+                     Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+
+         
+                     Padding="0,0,0,5"
+                     Margin="20,-5,0,0"
+                     Text="{Binding subheadline[1]}">
+            </TextBox>
+        </DataTemplate>
+
+        <DataTemplate  x:Key="SubheadlineLanguageTextDataChangeBox1">
+            <TextBox materialDesign:ColorZoneAssist.Mode="Light"
+                     d:DataContext="{d:Binding path}"
+                     TextChanged="SubeheadlineLanguageChanged1"
+                     Height="23"
+                     MinWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+                     Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+
+         
+                     Padding="0,0,0,5"
+                     Margin="20,-5,0,0"
+                     Text="{Binding subheadlinelanguage[1]}">
+            </TextBox>
+        </DataTemplate>
+
+        <DataTemplate  x:Key="SubheadlineTextDataChangeBox2">
+            <TextBox materialDesign:ColorZoneAssist.Mode="Light"
+                     d:DataContext="{d:Binding path}"
+                     TextChanged="SubeheadlineChanged2"
+                     Height="23"
+                     MinWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+                     Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+
+     
+                     Padding="0,0,0,5"
+                     Margin="20,-5,0,0"
+                     Text="{Binding subheadline[2]}">
+            </TextBox>
+        </DataTemplate>
+
+        <DataTemplate  x:Key="SubheadlineLanguageTextDataChangeBox2">
+            <TextBox materialDesign:ColorZoneAssist.Mode="Light"
+                     d:DataContext="{d:Binding path}"
+                     TextChanged="SubeheadlineLanguageChanged2"
+                     Height="23"
+                     MinWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+                     Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+
+                
+                     Padding="0,0,0,5"
+                     Margin="20,-5,0,0"
+                     Text="{Binding subheadlinelanguage[2]}">
+            </TextBox>
+        </DataTemplate>
+
+        <DataTemplate  x:Key="SubheadlineTextDataChangeBox3">
+            <TextBox materialDesign:ColorZoneAssist.Mode="Light"
+                     d:DataContext="{d:Binding path}"
+                     TextChanged="SubeheadlineChanged3"
+                     Height="23"
+                     MinWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+                     Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+
+               
+                     Padding="0,0,0,5"
+                     Margin="20,-5,0,0"
+                     Text="{Binding subheadline[3]}">
+            </TextBox>
+        </DataTemplate>
+
+        <DataTemplate  x:Key="SubheadlineLanguageTextDataChangeBox3">
+            <TextBox materialDesign:ColorZoneAssist.Mode="Light"
+                     d:DataContext="{d:Binding path}"
+                     TextChanged="SubeheadlineLanguageChanged3"
+                     Height="23"
+                     MinWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+                     Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+
+               
+                     Padding="0,0,0,5"
+                     Margin="20,-5,0,0"
+                     Text="{Binding subheadlinelanguage[3]}">
+            </TextBox>
+        </DataTemplate>
+
+        <DataTemplate  x:Key="SubheadlineTextDataChangeBox4">
+            <TextBox materialDesign:ColorZoneAssist.Mode="Light"
+                     d:DataContext="{d:Binding path}"
+                     TextChanged="SubeheadlineChanged4"
+                     Height="23"
+                     MinWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+                     Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+
+             
+                     Padding="0,0,0,5"
+                     Margin="20,-5,0,0"
+                     Text="{Binding subheadline[4]}">
+            </TextBox>
+        </DataTemplate>
+
+        <DataTemplate  x:Key="SubheadlineLanguageTextDataChangeBox4">
+            <TextBox materialDesign:ColorZoneAssist.Mode="Light"
+                     d:DataContext="{d:Binding path}"
+                     TextChanged="SubeheadlineLanguageChanged4"
+                     Height="23"
+                     MinWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+                     Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"
+
+                
+                     Padding="0,0,0,5"
+                     Margin="20,-5,0,0"
+                     Text="{Binding subheadlinelanguage[4]}">
+            </TextBox>
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <Window.CommandBindings>
+
+        <CommandBinding Command="{x:Static local:Tabs.PublishCommand}" 
+                        Executed="CommandBinding_OnExecuted"/>
+        <CommandBinding Command="{x:Static local:Tabs.ExitCommand}" 
+                        Executed="MenuExit"/>
+
+    </Window.CommandBindings>
+
+    <materialDesign:Card>
+
+        <TabControl
+            VerticalAlignment="Stretch"  HorizontalAlignment="Stretch"
+            TabStripPlacement="Top">
+            <TabItem Width="Auto" Height="Auto" Margin="0,-50,0,0">
+
+                <Grid VerticalAlignment="Stretch"  HorizontalAlignment="Stretch"  Height="Auto" Width="Auto">
+
+                    <Border  Height="Auto"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" Width="Auto" Margin="0,0,0,0" BorderBrush="Black" BorderThickness="0">
+
+                        <StackPanel   Height="Auto" Width="Auto"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch">
+
+                
+                
+                            <DockPanel Height="Auto" Name="stackPanel1" Width="Auto" LastChildFill="True" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch">
+                    
+
+                                <Menu Height="28" DockPanel.Dock="Top"
+                                      Margin="5,0,0,0"
+                                      HorizontalAlignment="Center"
+                                      HorizontalContentAlignment="Center"
+                                      VerticalAlignment="Stretch"
+                                      VerticalContentAlignment="Stretch" >
+
+                                    <MenuItem
+                                        Width="Auto"
+
+                                        VerticalAlignment="Stretch"
+                                        VerticalContentAlignment="Stretch"
+                                        Height="28"
+                                        HorizontalAlignment="Left"
+                                        HorizontalContentAlignment="Left"
+                                        MaxHeight="{Binding Source={x:Static SystemParameters.MaximizedPrimaryScreenHeight}}"
+
+                                        Name="MenuFileHeader"
+                                        Checked="MenuItem_OnChecked"
+                                        Header=" _File ">
+                                        <MenuItem
+                                            Click="MenuPublish"
+                                            Header="Publish"
+                                            InputGestureText="Ctrl+S"
+                                            Icon="{materialDesign:PackIcon Kind=ContentSaveMove}"></MenuItem>
+
+                                        <!--
+                        <Separator />
+                        -->
+                        
+                                        <MenuItem
+                                            Visibility="Collapsed"
+                                            Name="Excels2"
+                                            Icon="{materialDesign:PackIcon Kind=MicrosoftExcel}" 
+                                            Header="Excels"
+                                        >
+                                        </MenuItem>
+
+
+
+                                        <MenuItem
+                                            Visibility="Collapsed"
+                                            Name="Projects2"
+                                            Icon="{
+                        materialDesign:PackIcon Kind=ContentSaveEdit 
+                        }" 
+                                            Header="Project"
+                                        >
+
+                            
+                                        </MenuItem>
+
+                        
+
+                                        <!--
+                        <Separator />
+                        -->
+
+                                        <MenuItem
+
+                                            Click="MenuExit"
+                                            Header="Exit"
+                                            InputGestureText="Ctrl+Q"
+                                            Icon="{materialDesign:PackIcon Kind=ExitToApp}" />
+                                    </MenuItem>
+
+                                    <MenuItem
+                                        Height="28"
+                                        Name="MenuEditHeader"
+                                        Visibility="Collapsed"
+
+                                        Header=" _Edit "
+                                        Icon="{
+
+                        materialDesign:PackIcon Kind=Edit 
+
+                        }" >
+
+                                        <MenuItem
+
+                                            Click="MenuClear"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.ClearTooltip}"
+                                            Header="Clear Products"
+                                            Icon="{
+
+                        materialDesign:PackIcon Kind=NoteRemove 
+
+                        }" 
+                                        />
+
+                                        <MenuItem
+                                            Click="MenuClearApplication"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.ClearTooltip}"
+
+                                            Header="Clear Application"
+                                            Icon="{
+
+                        materialDesign:PackIcon Kind=NoteRemove 
+
+                        }" 
+                                        />
+
+                                        <MenuItem
+                                            Click="MenuClearAll"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.ClearAllTooltip}"
+                                            Header="Clear Everything"
+                                            Icon="{
+
+                        materialDesign:PackIcon Kind=TextBoxRemove 
+
+                        }" 
+                                        />
+
+                                    </MenuItem>
+
+                                    <MenuItem
+                                        Width="Auto"
+
+                                        VerticalAlignment="Stretch"
+                                        VerticalContentAlignment="Stretch"
+                                        Height="28"
+                                        Name="Projects"
+
+                                        Header="_Projects"
+                                        Icon="{materialDesign:PackIcon Kind=Edit }"
+                                    >
+                            
+                                    </MenuItem>
+                                    <MenuItem
+                                        Width="Auto"
+
+                                        VerticalAlignment="Stretch"
+                                        VerticalContentAlignment="Stretch"
+                                        Height="28"
+                                        Name="Excels"
+
+                                        Header="_Excels"
+                                        Icon="{materialDesign:PackIcon Kind=Edit }"
+                                    >
+                            
+                                    </MenuItem>
+                                    <MenuItem
+                                      
+                                        MinWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToMenuWidthConverter}}"
+
+                                        Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToMenuWidthConverter}}"
+                                        VerticalAlignment="Stretch"
+                                        VerticalContentAlignment="Stretch"
+                                        Height="28"
+                                        Margin="80,0,80,0"
+                                        Name="MenuItemStartscreen"
+                                        Icon="{
+                        materialDesign:PackIcon Kind=Monitor 
+
+                        }" 
+
+                                        Header=" _StartScreen "
+
+                                    >
+
+                                        <!--
+                                        <MenuItem
+                                            StaysOpenOnClick="True"
+                                            Name="ConfidentialToggle"
+                                            DataContext="1"
+                                            Click="PressedConfidentialToggle"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.ActivateMoreTooltip}"
+                                            Header="Confidential"
+                                        />
+                                        <Separator />
+                                        -->
+
+                                        
+                                        <MenuItem
+                                            Visibility="Collapsed"
+                                            StaysOpenOnClick="False"
+                                            Name="FocusScreenMenu"
+                                            Click="MenuSwitchStartTemplateScreen"
+                                            DataContext="0"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.TechDomainsTooltip}"
+                                            Header="Templates"
+                                             />
+                      
+                                        <MenuItem
+                                            StaysOpenOnClick="False"
+                                            Name="WhiteModeToggle"
+                                            Click="MenuSwitchStartTemplateScreen"
+                                            DataContext="1"
+                                            Header="ZF White Mode"
+                                            Icon="{materialDesign:PackIcon Kind=CardText}"
+                                            />
+                                        
+                                        <MenuItem
+                                            StaysOpenOnClick="False"
+                                            Name="BlueModeToggle"
+                                            Click="MenuSwitchStartTemplateScreen"
+                                            DataContext="2"
+                                            Header="ZF Blue Mode"
+                                            Icon="{materialDesign:PackIcon Kind=CardText}"
+                                             />
+                                        
+                                        <MenuItem
+                                            StaysOpenOnClick="False"
+                                            Name="LifeTecToggle"
+                                            Click="MenuSwitchStartTemplateScreen"
+                                            DataContext="3"
+                                            Header="LIFETEC"
+                                            Icon="{materialDesign:PackIcon Kind=CardText}"
+                                           />
+                                        
+                                        <Separator></Separator>
+                                        
+                                        <MenuItem
+                                            StaysOpenOnClick="False"
+                                            Name="CommercialVehicleSolutions"
+                                            Click="MenuSwitchStartScreen"
+                                            DataContext="6"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.CommercialVehiclesTooltip}"
+                                            Header="Commercial Vehicles"
+                                            Visibility="Visible"
+                                            Icon="{materialDesign:PackIcon Kind=CardText}" />
+
+                                        <MenuItem
+                                            StaysOpenOnClick="False"
+                                            Name="FocusMenu"
+                                            Click="MenuSwitchStartScreen"
+                                            DataContext="2"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.TruckAndTrailerTooltip}"
+                                            Header="Truck and Trailer"
+                                            Visibility="Visible"
+
+                                            Icon="{materialDesign:PackIcon Kind=CardText}" />
+
+                                        <MenuItem
+                                            StaysOpenOnClick="False"
+                                            Name="SmartMenu"
+                                            Click="MenuSwitchStartScreen"
+                                            DataContext="1"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.SmartTransportationTooltip}"
+                                            Header="Smart Transportation"
+                                            Visibility="Visible"
+
+                                            Icon="{materialDesign:PackIcon Kind=CardTextOutline}" />
+                                        <MenuItem
+                                            StaysOpenOnClick="False"
+                                            Name="SdVScreenMenu"
+                                            Click="MenuSwitchStartScreen"
+                                            DataContext="4"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.SdvApplicationTooltip}"
+                                            Header="SdV Panel"
+                                            Visibility="Collapsed"
+                                            Icon="{materialDesign:PackIcon Kind=CardText}" />
+
+                                        <MenuItem
+                                            StaysOpenOnClick="False"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.ShuttleTooltip}"
+                                            Visibility="Collapsed"
+                                            Name="ShuttleScreenMenu"
+                                            Click="MenuSwitchStartScreen"
+                                            DataContext="5"
+                                            Header="Shuttle Panel"
+                                            Icon="{materialDesign:PackIcon Kind=CardText}" />
+
+                                        <MenuItem
+                                            StaysOpenOnClick="False"
+                                            Visibility="Collapsed"
+                                            Name="Araiv"
+                                            Click="MenuSwitchStartScreen"
+                                            DataContext="7"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.AraivTooltip}"
+                                            Header="Araiv"
+                                            Icon="{materialDesign:PackIcon Kind=CardText}" />
+
+                                        <Separator />
+
+                                        <MenuItem
+                                            Height="28"
+                                            Name="Backgrounds"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.BackgroundsMenu}"
+                                            Header="_Backgrounds"
+                                            Icon="{materialDesign:PackIcon Kind=Edit }"
+                                        >
+                            
+                                        </MenuItem>
+                                        <Separator />
+                        
+                                        <MenuItem
+                                            Name="SkipMenu"
+                                            StaysOpenOnClick="True"
+                                            Click="MenuSwitchStartScreen"
+                                            DataContext="0"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.SkipHomeScreenTooltip}"
+                                            Header="Skip Home Screen"
+                                            Icon="{materialDesign:PackIcon Kind=PageNext}" />
+
+                                        <MenuItem
+                                            Visibility="Visible"
+                                            Name="TabsActive"
+                                            Icon="{materialDesign:PackIcon Kind=ContentSaveEdit}" 
+                                            Header="Tabs"
+                                        >
+                                            <MenuItem
+                                                StaysOpenOnClick="True"
+                                                Name="option1"
+                                                DataContext="1"
+                                                Click="MenuToggleOptions"
+                                                IsCheckable="True"
+                                                ToolTip="{x:Static dataTypes:FixedStrings.ActivateMoreTooltip}"
+
+                                                Header="More"
+                                            />
+                                            <MenuItem
+                                                Name="option0"
+                                                DataContext="0"
+                                                StaysOpenOnClick="True"
+                                                Click="MenuToggleOptions"
+                                                IsCheckable="True"
+                                                ToolTip="{x:Static dataTypes:FixedStrings.ActivateDetailsTooltip}"
+                                                Header="Details"
+                                            />
+                                            <MenuItem
+                                                Name="option8"
+                                                DataContext="8"
+                                                StaysOpenOnClick="True"
+                                                Click="MenuToggleOptions"
+                                                IsCheckable="True"
+                                                ToolTip="{x:Static dataTypes:FixedStrings.ActivateSpecsTooltip}"
+                                                Header="Specs"
+                                            />
+                                            <MenuItem
+                                                Name="option9"
+                                                DataContext="9"
+                                                StaysOpenOnClick="True"
+                                                Click="MenuToggleOptions"
+                                                IsCheckable="True"
+                                                ToolTip="{x:Static dataTypes:FixedStrings.ActivateImagesTooltip}"
+                                                Header="Images"
+                                            />
+                                            <MenuItem
+                                                Name="option10"
+                                                DataContext="10"
+                                                StaysOpenOnClick="True"
+                                                Click="MenuToggleOptions"
+                                                IsCheckable="True"
+                                                ToolTip="{x:Static dataTypes:FixedStrings.ActivateVideosTooltip}"
+                                                Header="Videos"
+                                            />
+                                            <MenuItem
+                                                Name="option11"
+                                                DataContext="11"
+                                                StaysOpenOnClick="True"
+                                                Click="MenuToggleOptions"
+                                                IsCheckable="True"
+                                                ToolTip="{x:Static dataTypes:FixedStrings.ActivatePresentationsTooltip}"
+                                                Header="Presentations"
+                                            />
+
+                                        </MenuItem>
+
+                                    </MenuItem>
+
+                                    <MenuItem
+                                        Width="Auto"
+                                        VerticalAlignment="Stretch"
+                                        VerticalContentAlignment="Stretch"
+
+                                        Height="28"
+                                        StaysOpenOnClick="True"
+                                        events:EventFocusAttachment.ElementToFocus="{Binding ElementName=LanguageTextbox}" 
+                                        SubmenuOpened="MenuLanguageButton_OnSubmenuOpened"
+                                        Name="MenuLanguageButton"
+                                        Icon="{
+                        materialDesign:PackIcon Kind=WebBox 
+                        }" 
+                                        Header=" _EN  "
+                                    >
+
+                        
+
+                        
+
+                                    </MenuItem>
+
+                                    <MenuItem
+                                        Width="Auto"
+                                        VerticalAlignment="Stretch"
+                                        VerticalContentAlignment="Stretch"
+                                        Height="28"
+                                        Name="MenuOptionsHeader"
+                                        Icon="{
+                        materialDesign:PackIcon Kind=Cog 
+                        }" 
+                                        Header=" _Options "
+                                    >
+
+                                        <MenuItem
+                                            Name="ConfidentialEdit"
+                                            Icon="{
+                        materialDesign:PackIcon Kind=BookLockOpen 
+                        }" 
+                                            Click="OpenConfidentialEditInstance"
+                                            Header="Edit Confidential" 
+                                            ToolTip="{x:Static dataTypes:FixedStrings.EditConfidentialMenu}"
+                                        /><!--ToolTip="{x:Static dataTypes:FixedStrings.DarkModeTooltip}"-->
+
+                                        <MenuItem
+
+                                            Name="option6"
+                                            DataContext="5"
+                                            IsCheckable="True"
+
+                                            Click="MenuToggleOptions"
+
+                                            ToolTip="{x:Static dataTypes:FixedStrings.DarkModeTooltip}"
+                                            Header="UseConverter" 
+                                        />
+
+                                        <MenuItem
+                                            Name="option2"
+                                            DataContext="2"
+                                            IsCheckable="True"
+                                            Grid.IsSharedSizeScope="True"
+                                            Click="MenuToggleOptions"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.AutoPublishTooltip}"
+                                            Header="AutoPublish" 
+                                        />
+
+                                        <MenuItem
+                                            Visibility="Collapsed"
+                                            StaysOpenOnClick="True"
+                                            Name="option4"
+                                            DataContext="4"
+                                            Click="MenuToggleOptions"
+                                            IsCheckable="True"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.ActivateMoreTooltip}"
+
+                                            Header="ShowInfoMessage"
+                                        />
+
+                                        <MenuItem
+
+                                            Name="option3"
+                                            DataContext="3"
+                                            IsCheckable="True"
+
+                                            Click="MenuToggleOptions"
+
+                                            ToolTip="{x:Static dataTypes:FixedStrings.DarkModeTooltip}"
+                                            Header="DarkMode" 
+                                        />
+
+                        
+
+                        
+
+                        
+
+                        
+
+                                    </MenuItem>
+
+                                    <MenuItem
+
+                                        Visibility="Hidden"
+                                        Name="MenuHelpHeader"
+                                        Icon="{
+                        materialDesign:PackIcon Kind=Cog 
+                        }" 
+                                        Header=" _Help "
+                                    >
+
+                                        <MenuItem
+                                            Name="MenuHelp"
+                                            Click="Help_OnClick"
+                                            Header="Manual" 
+                                        />
+
+                                    </MenuItem>
+                                </Menu>
+
+                                <DockPanel
+                                    DockPanel.Dock="Top"
+
+                                    Height="Auto"
+                              
+                                    LastChildFill="True"
+                                    FlowDirection="LeftToRight"
+
+                                    Margin="0,0,0,0"    Width="Auto"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
+                                    Name="StackPanelSegementList"
+                                >
+                                    <ListView 
+
+                                  
+                               
+                                        Width="Auto"
+                                        Height="270" SelectionChanged="SegementList_OnSelectionChanged" SelectionMode="Single" Name="SegementList" Margin="0,0,0,0">
+
+                                        <ListView.Resources>
+                                            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+                                        </ListView.Resources>
+                                        <ListView.View
+
+                                        >
+                                            <GridView 
+                                            >
+                                                <GridViewColumn Header="Segment" Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}" >
+
+                                                    <GridViewColumn.CellTemplateSelector>
+                                                        <StaticResource ResourceKey="NameTemplateSelector"/>
+                                                    </GridViewColumn.CellTemplateSelector>
+
+                                                </GridViewColumn>
+
+                                                <GridViewColumn  Header="Subheadline 1" Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}" >
+                                                    <GridViewColumn.CellTemplateSelector>
+                                                        <StaticResource ResourceKey="SubheadlineTemplateSelector0"/>
+                                                    </GridViewColumn.CellTemplateSelector>
+                                                </GridViewColumn>
+
+                                                <GridViewColumn Header="Subheadline 2" Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}" >
+                                                    <GridViewColumn.CellTemplateSelector>
+                                                        <StaticResource ResourceKey="SubheadlineTemplateSelector1"/>
+                                                    </GridViewColumn.CellTemplateSelector>
+                                                </GridViewColumn>
+
+                                                <GridViewColumn  Header="Subheadline 3" Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}"  >
+                                                    <GridViewColumn.CellTemplateSelector>
+                                                    
+                                                        <StaticResource ResourceKey="SubheadlineTemplateSelector2"/>
+                                                    </GridViewColumn.CellTemplateSelector>
+                                                </GridViewColumn>
+
+                                                <GridViewColumn  Header="Subheadline 4" Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}" >
+                                                    <GridViewColumn.CellTemplateSelector>
+                                                        <StaticResource ResourceKey="SubheadlineTemplateSelector3"/>
+                                                    </GridViewColumn.CellTemplateSelector>
+                                                </GridViewColumn>
+                                                <GridViewColumn  Header="Subheadline 5" Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='80,146,6,230'}" >
+                                                    <GridViewColumn.CellTemplateSelector>
+                                                        <StaticResource ResourceKey="SubheadlineTemplateSelector4"/>
+                                                    </GridViewColumn.CellTemplateSelector>
+                                                </GridViewColumn>
+
+                                                <GridViewColumn   Width="30" >
+                                                    <GridViewColumn.CellTemplate  >
+
+                                                        <DataTemplate >
+                                                            <StackPanel
+                                                                Margin="0,0,0,0" 
+                                                                >
+                                                                <Button
+                                                                    d:DataContext="{ d:Binding path}"
+                                                                    Margin="-5,-4,0,0" 
+                                                                    Height="20" 
+                                                                    Width="20"
+                                                                    Click="ClearAllSubheadlines"
+                                                                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                                                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                                                    ToolTip="{x:Static dataTypes:FixedStrings.ClearSubheadlinesTooltip}"
+                                                                    Background="{DynamicResource MaterialDesignDarkBackground}">
+                                                                    <materialDesign:PackIcon
+                                                                        Kind="Minus" />
+                                                                </Button> 
+                                                            </StackPanel>
+                                                                                         
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+
+                                                <GridViewColumn  Header="" Width="30">
+                                                    <GridViewColumn.CellTemplate >
+                                                        <DataTemplate >
+                                                            <ToggleButton
+                                                                Style="{StaticResource MaterialDesignActionToggleButton}"
+                                                                ToolTip="{x:Static dataTypes:FixedStrings.EnableSegmentsTooltip}"
+                                                                materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                                                Margin="-5,-4,0,0"
+                                                                Width="20"
+                                                                Height="20"
+                                                                Checked="SegmentChecked"
+                                                                Unchecked="SegmentChecked"
+                                                                IsChecked="{Binding enabled}"
+
+                                                                Background="Transparent"
+                                                                Foreground="Black"
+                                                                Content="{
+
+                                                    mdix:PackIcon 
+                                                    Kind=Close }"
+
+                                                            >
+
+                                                                <materialDesign:ToggleButtonAssist.OnContentTemplate>
+                                                                    <DataTemplate
+                                                                    >
+                                                                        <mdix:PackIcon Kind="Check"
+
+                                                                            RenderSize="1,1"
+
+                                                                            Background="#1179bf"
+
+                                                                            MinWidth="20" MinHeight="20"
+
+                                                                            Foreground="Azure">
+
+                                                                        </mdix:PackIcon>
+
+                                                                    </DataTemplate>
+
+                                                                </materialDesign:ToggleButtonAssist.OnContentTemplate>
+                                                            </ToggleButton>      
+
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+
+                                                <GridViewColumn  Header="" Width="30">
+                                                    <GridViewColumn.CellTemplate >
+                                                        <DataTemplate >
+                                                            <ToggleButton
+                                                                Style="{StaticResource MaterialDesignActionToggleButton}"
+                                                                ToolTip="{x:Static dataTypes:FixedStrings.EnableSecondLanguageTooltip}"
+                                                                materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                                                Margin="-5,-4,0,0"
+                                                                Width="20"
+                                                                Height="20"
+                                                                Checked="LanguageSegmentCheckedNormal"
+                                                                Unchecked="LanguageSegmentCheckedNormal"
+                                                                IsChecked="{Binding enabledlanguage}"
+
+                                                                Background="Transparent"
+                                                                Foreground="Black"
+                                                                Content="{
+
+                                                    mdix:PackIcon 
+                                                    Kind=Language }"
+
+                                                            >
+
+                                                                <materialDesign:ToggleButtonAssist.OnContentTemplate>
+                                                                    <DataTemplate
+                                                                    >
+                                                                        <mdix:PackIcon Kind="Language"
+
+                                                                            RenderSize="1,1"
+
+                                                                            Background="#1179bf"
+
+                                                                            MinWidth="20" MinHeight="20"
+
+                                                                            Foreground="Azure">
+
+                                                                        </mdix:PackIcon>
+
+                                                                    </DataTemplate>
+
+                                                                </materialDesign:ToggleButtonAssist.OnContentTemplate>
+                                                            </ToggleButton>      
+
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                     
+                                </DockPanel>
+                                
+
+                                <Border 
+                                    DockPanel.Dock="Top"
+
+                                    HorizontalAlignment="Stretch" 
+                                    Margin="0,0,0,-38" 
+                                    VerticalAlignment="Bottom"
+                                    Width="Auto" 
+                                    Background="#BFEAF9FF" 
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1,1.5,1,1.5" 
+                                    CornerRadius="8,8,8,8 " 
+                                    Height="40"  >
+                                    <StackPanel
+                                        Background="Transparent"  
+                                        Width="Auto" 
+                                        Orientation="Horizontal" 
+                                        Height="40" 
+                                        Margin="0,0,0,0" 
+                                        VerticalAlignment="Bottom" 
+                                        HorizontalAlignment="Stretch" >
+
+                                    </StackPanel></Border>
+
+                                <DockPanel  
+                                    DockPanel.Dock="Top"
+                                    LastChildFill="True"
+                                    FlowDirection="LeftToRight"
+
+                                    Margin="0,0,45,0"    Width="Auto"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+
+                                    <StackPanel   Margin="35,0,0,5" Orientation="Horizontal"  HorizontalAlignment="Left" Width="Auto">
+
+                                        <Button
+                                            ToolTip="{x:Static dataTypes:FixedStrings.ImportExcelTooltip}"
+                                            Margin="0,0,15,0"  Padding="0,0,0,0"
+                                            Height="30" 
+                                            Width="30"
+                                            DataContext="0"
+                                            Click="ButtonExcel_OnClick"
+                                            Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+                                            Foreground="{DynamicResource SecondaryHueMidBrush}"
+                                            Background="{DynamicResource MaterialDesignPaper}">
+                                            <materialDesign:PackIcon
+                                                Height="22.5" 
+                                                Width="22.5"
+                                                Foreground="{DynamicResource MaterialDesignTextAreaBorder}"
+                                                Kind="MicrosoftExcel" />
+                                        </Button>
+
+                                        <Button
+
+                                            Margin="10,0,0,0" 
+                                            Height="30" 
+                                            Width="30"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.SwitchToPresentation}"
+                                            Click="setPresentation_btn"
+                                            Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+                                            Foreground="{DynamicResource SecondaryHueMidBrush}"
+                                            Background="{DynamicResource MaterialDesignPaper}">
+                                            <materialDesign:PackIcon
+                                                Height="25" 
+                                                Width="25"
+                                                Foreground="{DynamicResource MaterialDesignTextAreaBorder}"
+                                                Kind="Airplay" />
+                                        </Button>
+
+                                        <Button
+
+                                            Margin="25,0,0,0" 
+                                            Height="30" 
+                                            Width="30"
+                                            Click="PressedConfidentialToggle"
+                                            ToolTip="{x:Static dataTypes:FixedStrings.ConfidentialButton}"
+                                            Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+                                            Foreground="{DynamicResource SecondaryHueMidBrush}"
+                                            Background="{DynamicResource MaterialDesignPaper}">
+                                            <materialDesign:PackIcon
+                                                Height="20" 
+                                                Width="20"
+                                                Foreground="{DynamicResource MaterialDesignTextAreaBorder}"
+                                                Kind="BookLock" />
+                                        </Button>
+
+                            
+                                    </StackPanel>
+
+                                    <StackPanel   Margin="35,0,0,0" Orientation="Horizontal"  HorizontalAlignment="Right" Width="Auto">
+                        
+
+                        
+
+                                        <StackPanel   Margin="0,0,35,0" Orientation="Horizontal"  HorizontalAlignment="Right" Width="Auto">
+
+                                        </StackPanel>
+
+                                        <StackPanel  Orientation="Horizontal"  HorizontalAlignment="Right" Width="Auto">
+
+                                            <StackPanel>
+                                                <StackPanel x:Name="StackPanel1"
+                                                            Height="45"
+                                                            Margin="0,-5,0,0"
+                                                            Orientation="Horizontal">
+                                                    <StackPanel.Style>
+                                                        <Style TargetType="{x:Type StackPanel}">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=RadioButton1, Path=IsChecked}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Visible" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </StackPanel.Style>
+                                                    <CheckBox
+                                                        ToolTip="{x:Static dataTypes:FixedStrings.AddRefreshTooltip}"
+                                                        Click="setRefreshTopic_btn"
+                                                        Margin="0,2,8,0" 
+                                                        Name="txtFilePath"
+                                                        IsEnabled="True"
+                                                        Checked="RefreshChecked"
+                                                        Unchecked="RefreshChecked"
+                                                        Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}"
+                                                        IsChecked="False"
+                                                        Content="" />
+
+                                                </StackPanel>
+
+                                                <StackPanel x:Name="StackPanel2"
+                                                            Height="45"
+                                                            Margin="0,-5,0,0"
+                                                            Orientation="Horizontal">
+                                                    <StackPanel.Style>
+                                                        <Style TargetType="{x:Type StackPanel}">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=RadioButton2, Path=IsChecked}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Visible" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </StackPanel.Style>
+
+                                                </StackPanel>
+
+                                                <StackPanel x:Name="StackPanel3"
+                                                            Height="45"
+                                                            Margin="0,-5,0,0"
+                                                            Orientation="Horizontal">
+                                                    <StackPanel.Style>
+                                                        <Style TargetType="{x:Type StackPanel}">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=RadioButton3, Path=IsChecked}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Visible" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </StackPanel.Style>
+
+                                                </StackPanel>
+                                            </StackPanel>
+
+                                            <StackPanel
+                                                Height="45"
+                                                Margin="0,-5,0,0"
+                                                Orientation="Horizontal">
+
+                                                <TextBox
+                                
+                                                    ToolTip="{x:Static dataTypes:FixedStrings.RefreshInputTooltip}"
+                                                    Margin="0,0,10,4"
+                                                    Padding="0,0,0,5"
+                                                    materialDesign:HintAssist.Hint="              0"
+                                                    materialDesign:HintAssist.Foreground="#00abe7"
+                                                    materialDesign:TextFieldAssist.UnderlineBrush="#1179bf"
+                                                    materialDesign:TextFieldAssist.HasClearButton="True"
+                                                    materialDesign:HintAssist.HelperText=""
+
+                                                    materialDesign:HintAssist.FloatingOffset="100,100"
+                                                    materialDesign:TextFieldAssist.LeadingIcon="Timer"
+                                                    Height="30"
+                                                    Width="100"
+
+                                                    VerticalAlignment="Bottom"
+                                                    VerticalContentAlignment="Bottom"
+                                                    DataObject.Pasting="TextBoxPasting"
+                                                    TextChanged="TextBoxBase_OnTextChanged"
+                                                    PreviewTextInput="PreviewTextInput" 
+                                                    x:Name="ScreenSaverCountdown"
+                                                    TextAlignment="Center"
+                                                    materialDesign:TransitionAssist.DisableTransitions="False" >
+
+                                                </TextBox>
+                                                <RadioButton
+                                                    x:Name="RadioButton1"
+                                                    ToolTip="{x:Static dataTypes:FixedStrings.ScreenSaverProductOnOffTooltip}"
+                                                    Margin="4"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalContentAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Checked="ScreenSaverModeChecked"
+                                                    Unchecked="ScreenSaverModeUnChecked"
+                                                    Click="ScreenSaverClicked"
+                                                    DataContext="1"
+                                                    Style="{StaticResource MaterialDesignChoiceChipAccentRadioButton}">
+                                                    <StackPanel Height="40" Width="40" MinHeight="40" MinWidth="40">
+                                                        <materialDesign:PackIcon
+                                                            Margin="0,5,0,0"
+                                                            Height="25" Width="25" MinHeight="25" MinWidth="25"
+                                                            HorizontalAlignment="Center"
+                                                            Kind="AccountBoxMultiple" />
+
+                                                    </StackPanel>
+                                                </RadioButton>
+
+                                                <RadioButton
+                                                    x:Name="RadioButton2"
+                                                    Click="ScreenSaverClicked"
+                                                    ToolTip="{x:Static dataTypes:FixedStrings.ScreenSaverVideoOnOffTooltip}"
+
+                                                    Width="55"
+                                                    Checked="ScreenSaverModeChecked"
+                                                    Unchecked="ScreenSaverModeUnChecked"
+                                                    Margin="4"
+                                                    DataContext="2"
+                                                    Style="{StaticResource MaterialDesignChoiceChipAccentRadioButton}">
+                                                    <StackPanel>
+                                                        <materialDesign:PackIcon
+                                                            Height="25" Width="25" MinHeight="25" MinWidth="25"
+                                                            HorizontalAlignment="Center"
+                                                            Kind="AccountBoxOutline" />
+
+                                                    </StackPanel>
+                                                </RadioButton>
+
+                                                <RadioButton
+                                                    x:Name="RadioButton3"
+                                                    ToolTip="{x:Static dataTypes:FixedStrings.ScreenSaverHomeScreenOnOffTooltip}"
+                                                    Click="ScreenSaverClicked"
+                                                    Checked="ScreenSaverModeChecked"
+                                                    Unchecked="ScreenSaverModeUnChecked"
+                                                    Margin="4"
+                                                    Width="55"
+                                                    IsEnabled="True"
+                                                    DataContext="3"
+                                                    Style="{StaticResource MaterialDesignChoiceChipAccentRadioButton}">
+                                                    <StackPanel>
+                                                        <materialDesign:PackIcon
+                                                            Height="20" Width="20" MinHeight="20" MinWidth="20"
+                                                            HorizontalAlignment="Center"
+                                                            Kind="AccountConvert" />
+
+                                                    </StackPanel>
+                                                </RadioButton>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                    </StackPanel>
+
+                                </DockPanel>
+
+                                <DockPanel
+                                    LastChildFill="True"
+                                    DockPanel.Dock="Bottom"
+                                    
+                                    Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Stretch">
+
+                                    <Grid Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='520,20,2,520'}"  MinHeight="520" MaxHeight="520" HorizontalAlignment="Stretch">
+
+                                        <ListView  
+                                            ItemContainerStyle="{StaticResource productListViewItemStyle}"
+                                            Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='520,20,2,520'}" 
+                                            PreviewMouseRightButtonDown="PimDataList_OnMouseLeftButtonUp" 
+
+                                            Height="Auto" 
+                                            SelectionMode="Extended" 
+                                            SelectionChanged="Products_OnSelectionChanged" 
+                                 
+                                            Name="PimDataList"
+
+                                        >
+
+                                            <ListView.Resources  >
+                                                <converters:ProductConfidentialConverter x:Key="ProductConfidentialConverter" />
+                                                <converters:ProductOrdinalIconConverter x:Key="ProductOrdinalIconConverter" />
+                                                <converters:ProductOrdinalConverter x:Key="ProductOrdinalConverter" />
+                                                <DataTemplate x:Key="OrdinalColumnDataTemplate" >
+
+                                                    <StackPanel Orientation="Horizontal" >
+                                                        <TextBlock 
+                                                            TextAlignment="Left"
+                                                            Width="25"
+                                                            Name="ConverterTextBlock"
+                                                            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem},
+            Converter={StaticResource ResourceKey=ProductOrdinalConverter}}" HorizontalAlignment="Left" /> 
+
+                                                    </StackPanel>
+
+                                                </DataTemplate>
+                                            </ListView.Resources>
+
+                                            <ListView.View>
+                                                <GridView>
+                                
+
+                                                    <GridViewColumn 
+                                                        Header="Row" 
+                                                        Width="35" 
+
+                                                        CellTemplate="{StaticResource ResourceKey=OrdinalColumnDataTemplate}"
+
+                                                    >
+
+                                                    </GridViewColumn>
+
+                                                    <GridViewColumn Header="ID" Width="90">
+                                                        <GridViewColumn.CellTemplate  >
+                                                            <DataTemplate >
+                                                                <StackPanel Orientation="Horizontal" >
+                                                                             
+                                                                    <materialDesign:PackIcon
+
+                                                                        HorizontalAlignment="Right"
+                                                                        Style="{StaticResource ChangeColorOnDark}"
+                                                                        Margin="-4,2,0,0"
+                                                                        Kind="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem},Converter={StaticResource ResourceKey=ProductOrdinalIconConverter}, ConverterParameter='0'}"
+
+                                                                    ></materialDesign:PackIcon>
+                                                                    
+                                                                    <TextBlock 
+
+                                                                        Width="45" 
+                                                                        materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryHueMidBrush}"
+                                                                        materialDesign:ColorZoneAssist.Mode="SecondaryLight"
+                                                                        Margin="6,0,0,0" Text="{Binding id}" TextDecorations="Underline"  Cursor="Hand"
+                                                                    />
+                                                           
+
+                                                              
+                                                                </StackPanel>
+
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+
+                                                    <GridViewColumn Header="Product Name" Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='230,346,2,230'}"   >
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal" 
+                                                                            Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='230,336,2,230'}"
+                                                                            >
+
+                                                                    <TextBlock 
+                                                                        Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='230,456,2,230'}"
+                                                                           
+                                                                        Margin="17.5,0,0,0" Text="{Binding en.ProductName}"   />
+                                                
+                                                                    <materialDesign:PackIcon
+
+                                                                        HorizontalAlignment="Right"
+                                                                        Style="{StaticResource ChangeColorOnDark}"
+                                                                        Margin="10,2,0,0"
+                                                                        Kind="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem},
+            Converter={StaticResource ResourceKey=ProductOrdinalIconConverter}}"
+
+                                                                    ></materialDesign:PackIcon>
+                                                                    
+                                                           
+                                                      
+                                              
+                                                
+                                                                </StackPanel>
+
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+
+                                                </GridView>
+                                            </ListView.View>
+
+                                        </ListView>
+
+                         
+                                        <Border  HorizontalAlignment="Stretch"  Margin="0,0,5,-58" VerticalAlignment="Bottom" Width="Auto" Background="#BFEAF9FF" BorderBrush="LightGray" BorderThickness="1,1.5,1,1.5" CornerRadius="8,8,8,8 " Height="48"  >
+                                            <StackPanel Background="Transparent"   Width="Auto" Orientation="Horizontal"  Height="44" Margin="0,6,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" >
+
+                                                <Button Margin="0,0,0,0" ToolTip="{x:Static dataTypes:FixedStrings.ClearTooltip}" Content="Clear" Name="clearDataButton" Width="120" FontSize="15" Height="30" FontWeight="Normal" Click="ClearExcelData" /> 
+
+                                                <Button  Margin="305,0,0,0"   ToolTip="{x:Static dataTypes:FixedStrings.AddTooltip}" Content="Add" Name="addAllSelectedBtn" Width="120" FontSize="15" Height="30" FontWeight="Normal" Click="addSelectedSolution_btn" /> 
+
+                              
+
+                            
+
+                                            </StackPanel> 
+
+                                        </Border>
+
+                                    </Grid>
+
+                                    <Grid  
+                                        Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='520,20,2,520'}" 
+                                        MinHeight="520" 
+                                        MaxHeight="520" 
+                                        HorizontalAlignment="Stretch">
+
+                                        <ListView  
+                                            ItemContainerStyle="{StaticResource solutionListViewItemStyle}"
+                               
+
+                                      
+                                            Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='520,20,2,520'}" 
+                                            SelectionChanged="Solutions_OnSelectionChanged" 
+                                            SelectionMode="Extended" 
+                                            Name="SolutionsList" 
+                                            AllowDrop="True" 
+                                            PreviewMouseLeftButtonDown="lstView_PreviewMouseLeftButtonDown" 
+                                            MouseMove="solutions_MouseMove"
+                                            DragEnter="solutions_DragEnter" 
+                                            Drop="solutions_Drop"
+                                        >
+
+                                            <ListView.Resources>
+                                                <converters:SolutionOrdinalConverter x:Key="SolutionOrdinalConverter" />
+                                                <converters:SolutionOrdinalIconConverter x:Key="SolutionOrdinalIcon" />
+                                                <DataTemplate x:Key="OrdinalColumnDataTemplate">
+                                                    <StackPanel Orientation="Horizontal" >
+                                                        <TextBlock  Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem}, Converter={StaticResource ResourceKey=SolutionOrdinalConverter}}" HorizontalAlignment="Right" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListView.Resources>
+
+                                            <ListView.View>
+                                                <GridView >
+
+                                                    <GridViewColumn 
+                                                        Header="Row" 
+                                                        Width="30" 
+                                                        CellTemplate="{StaticResource ResourceKey=OrdinalColumnDataTemplate}"
+
+                                                    >
+
+                                                    </GridViewColumn>
+
+                                                    <GridViewColumn  Width="20"  >
+                                                        <GridViewColumn.CellTemplate >
+                                                            <DataTemplate>
+                                                                <StackPanel Margin="-10,0,0,0" Orientation="Horizontal" >
+                                                                    
+                                                          
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+
+                                                    <GridViewColumn Header="ID" Width="92"  >
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal" >
+
+                                                                    <materialDesign:PackIcon
+                                                                        HorizontalAlignment="Right"
+                                                                        Style="{StaticResource ChangeColorOnDark}"
+                                                                        Margin="-4,2,0,0"
+
+                                                                        Kind="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem},
+            Converter={StaticResource ResourceKey=SolutionOrdinalIcon}, ConverterParameter='0'}"
+                                                                    ></materialDesign:PackIcon>
+                                                                    
+                                                                    <TextBlock  Width="45"  Margin="6,0,0,0" Text="{Binding id}" />
+                                                          
+                                                                    <materialDesign:PackIcon
+
+                                                                        HorizontalAlignment="Right"
+                                                                        Style="{StaticResource ChangeColorOnDark}"
+                                                                        Margin="0,2,0,0"
+                                                                        Kind="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem},
+            Converter={StaticResource ResourceKey=SolutionOrdinalIcon}}"
+
+                                                                    ></materialDesign:PackIcon>
+                                                               
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn Header="Product Name" Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='230,446,2,230'}" >
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal" Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='230,446,2,230'}">
+                                                                    <TextBlock                                                                   
+                                                                        Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource WindowWidthToTextBoxWidthConverter}, ConverterParameter='230,446,2,230'}"
+                                                                        Margin="20,0,0,0" Text="{Binding en.ProductName}" />
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+
+                                                    <GridViewColumn  Header="" Width="35">
+                                                        <GridViewColumn.CellTemplate >
+                                                            <DataTemplate >
+                                                
+
+                                                                <ToggleButton
+                                                                    Style="{StaticResource MaterialDesignActionToggleButton}"
+                                                                    ToolTip="{x:Static dataTypes:FixedStrings.EnableProductsTooltip}"
+                                                                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                                                    Margin="-40,0,0,0"
+
+                                                                    Width="20"
+                                                                    Height="20"
+                                                                    IsChecked="{Binding enabled}"
+                                                                    Checked="SolutionChecked"
+                                                                    Unchecked="SolutionChecked"
+                                                                    Background="Transparent"
+                                                                    Foreground="Black"
+                                                                    Content="{
+
+                                                    mdix:PackIcon 
+                                                    Kind=Close }"
+
+                                                                >
+
+                                                                    <materialDesign:ToggleButtonAssist.OnContentTemplate>
+                                                                        <DataTemplate
+                                                                        >
+                                                                            <mdix:PackIcon Kind="Check"
+
+                                                                                RenderSize="1,1"
+
+                                                                                Background="#1179bf"
+
+                                                                                MinWidth="20" MinHeight="20"
+
+                                                                                Foreground="Azure">
+
+                                                                            </mdix:PackIcon>
+
+                                                                        </DataTemplate>
+
+                                                                    </materialDesign:ToggleButtonAssist.OnContentTemplate>
+                                                                </ToggleButton>
+
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+
+                                        <Border  HorizontalAlignment="Stretch" 
+                                                 Margin="0,0,25,-58" 
+                                                 VerticalAlignment="Bottom"
+                                                 Width="Auto" 
+                                                 Background="#BFEAF9FF" 
+                                                 BorderBrush="LightGray"
+                                                 BorderThickness="1,1.5,1,1.5"
+                                                 CornerRadius="8,8,8,8 " 
+                                                 Height="48"   >
+                                            <StackPanel
+                                                Background="Transparent"  
+                                                Width="Auto" 
+                                                Orientation="Horizontal" 
+                                                Height="44"
+                                                Margin="0,0,0,0" 
+                                                VerticalAlignment="Bottom" HorizontalAlignment="Center" >
+
+                                                <Button  Margin="0,0,10,0" ToolTip="{x:Static dataTypes:FixedStrings.RemoveTooltip}"  Content="Remove" Name="deleteAllSelectedBtn" Width="120" FontSize="15" Height="30" FontWeight="Normal" Click="deleteSelectedSolution_btn" /> 
+                                                <Button Margin="30,0,0,0" ToolTip="{x:Static dataTypes:FixedStrings.EmptyTileToolTip}"
+                                                        Content="+ EmptyTile" Name="addEmptyTile" Width="120" FontSize="15" Height="30" FontWeight="Normal" Click="AddEmptyTile" /> 
+
+                                                <Button Margin="15,0,0,0" ToolTip="{x:Static dataTypes:FixedStrings.ClearProjectTooltip}" Content="Delete" Name="clearSolutionDataButton" Width="120" FontSize="15" Height="30" FontWeight="Normal" Click="ClearSolutionData" /> 
+
+                                                <Button Margin="30,0,0,0"   ToolTip="{x:Static dataTypes:FixedStrings.PublishTooltip}" Content="Publish" Name="saveSolutionButton" Width="120" FontSize="15" Height="30" FontWeight="Normal" Click="MenuPublish" /> 
+
+                                   
+
+                                            </StackPanel></Border>
+
+                        
+
+                                    </Grid>
+
+                                </DockPanel>
+                            </DockPanel>
+
+                        </StackPanel>
+
+                    </Border>
+
+           
+
+                    <materialDesign:Snackbar
+
+                        mdix:ColorZoneAssist.Mode="SecondaryLight"
+                        mdix:SnackbarMessage.ContentMaxHeight="22"
+                        x:Name="Snackbar0"
+
+                        Width="1000"
+                        HorizontalContentAlignment="Center"
+
+                        Margin="35 8 35 0"
+                        MessageQueue="{materialDesign:MessageQueue}"
+                        HorizontalAlignment="Stretch">
+
+                    </materialDesign:Snackbar>  
+                </Grid>
+
+            </TabItem>
+        </TabControl>
+    </materialDesign:Card>
+</Window>

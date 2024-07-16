@@ -1,0 +1,20 @@
+
+
+-Tech Domain > Zf Segments umbennenung - 0
+-Live Tech Segments - 0
+-Limit TextAnzeichen - 0
+
+-Branding
+
+-Color Change - List
+Rahmen - 
+-Araiv umbennung
+-Navbar Top/Bottom
+
+Options:
+-LowerUpperCase
+-Color for Main
+-Font Switch
+-Rahmen Color Switch
+
+

@@ -1,0 +1,35 @@
+variables:
+  ARTIFACT_PATH: "ZF_PIM_Importer"
+  ARTIFACT_NAME: "ZF_PIM_Importer.zip"
+  FORCE_IP: "http://192.168.0.117:8081"
+  FORCE_TOKEN: "glpat-Z5QU3N7z9TmKb485hTyX"
+  VERSION_FILE: "version.txt"
+  PROJECT_DIR: "focus-application/PimImporter"
+  PROJECT_EXE: "ZFPimImporter.exe"
+
+before_script:
+  - apt-get update -y
+  - apt-get install -y python3
+  - apt-get install -y python3-pip
+  - apt-get install -y jq
+  - pip3 install requests
+
+stages:
+  - prepare
+  - build
+  - test
+  - release
+
+release:
+  stage: release
+  #rules:
+  #  - if: $CI_PIPELINE_SOURCE == "api"
+  script:
+    - 'dotnet publish $PROJECT_PATH -c $BUILD_CONFIGURATION -o publish'
+    - 'cd publish'
+    - 'zip -r ../$ARTIFACT_NAME *'
+    - 'cd ..'
+    - 'RAW_RESPONSE=$(curl --request POST --header "PRIVATE-TOKEN: $FORCE_TOKEN" --form "file=@$ARTIFACT_NAME" "${FORCE_IP}/api/v4/projects/${CI_PROJECT_ID}/uploads")'
+    - 'echo "Raw API response: $RAW_RESPONSE"'
+    - 'RELEASE_URL=$(echo "$RAW_RESPONSE" | jq -r ".url")'
+    - 'curl --request POST --header "PRIVATE-TOKEN: $FORCE_TOKEN" --data "name=$(date +%d.%m.%y)" --data-urlencode "description=## [Download $ARTIFACT_PATH]($RELEASE_URL)" --data "ref=${CI_COMMIT_SHA}" --data "tag_name=v$(date +%Y-%m-%d)-${CI_COMMIT_SHORT_SHA}" "${FORCE_IP}/api/v4/projects/${CI_PROJECT_ID}/releases"'

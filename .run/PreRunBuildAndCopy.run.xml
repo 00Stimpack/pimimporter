@@ -1,0 +1,31 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="PreRunBuildAndCopy" type="DotNetProject" factoryName=".NET Project" singleton="false">
+    <option name="EXE_PATH" value="$PROJECT_DIR$/../FocusApplication/PimImporter/ZF_Pim_Importer.exe" />
+    <option name="PROGRAM_PARAMETERS" value="--testing" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../FocusApplication/PimImporter/" />
+    <option name="PASS_PARENT_ENVS" value="1" />
+    <envs>
+      <env name="PATHEXT" value=".ZFPIMI;.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW" />
+    </envs>
+    <option name="USE_EXTERNAL_CONSOLE" value="0" />
+    <option name="USE_MONO" value="0" />
+    <option name="RUNTIME_ARGUMENTS" value="" />
+    <option name="PROJECT_PATH" value="$PROJECT_DIR$/zf-pim-importer/zf-pim-importer.csproj" />
+    <option name="PROJECT_EXE_PATH_TRACKING" value="0" />
+    <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
+    <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="0" />
+    <option name="PROJECT_KIND" value="DotNetCore" />
+    <option name="PROJECT_TFM" value=".NETFramework,Version=v4.7.2" />
+    <method v="2">
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="ReleaseBuilder" run_configuration_type="ShConfigurationType" />
+      <option name="Build" />
+      <option name="BeforeLaunchTask" enabled="true" type="RunExternalTool">
+        <RunExternalTool>
+          <option name="toolPath" value="cmd.exe" />
+          <option name="parameters" value="/c .\builder.bat &quot;.\focus_app.txt&quot; &quot;.\bin\Release\net472\&quot;" />
+          <option name="workingDirectory" value="$PROJECT_DIR$/../PimImporter\..\FocusApplication\PimImporter" />
+        </RunExternalTool>
+      </option>
+    </method>
+  </configuration>
+</component>

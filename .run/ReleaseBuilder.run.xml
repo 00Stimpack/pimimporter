@@ -1,0 +1,19 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ReleaseBuilder" type="ShConfigurationType">
+    <option name="SCRIPT_TEXT" value=".\builder.bat &quot;.\focus_app.txt&quot; &quot;.\bin\Release\net472\&quot;" />
+    <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+    <option name="SCRIPT_PATH" value="" />
+    <option name="SCRIPT_OPTIONS" value="" />
+    <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+    <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$/zf-pim-importer" />
+    <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+    <option name="INTERPRETER_PATH" value="" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="EXECUTE_IN_TERMINAL" value="true" />
+    <option name="EXECUTE_SCRIPT_FILE" value="false" />
+    <envs />
+    <method v="2">
+      <option name="Build" default="false" projectName="zf-pim-importer" projectPath="file://$PROJECT_DIR$/zf-pim-importer/zf-pim-importer.csproj" />
+    </method>
+  </configuration>
+</component>

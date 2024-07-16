@@ -1,0 +1,49 @@
+<Window x:Class="ZFPimImporter.ModalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:ZFPimImporter"
+        xmlns:zfPimImporter="clr-namespace:ZFPimImporter"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:dataTypes="clr-namespace:ZFPimImporter.DataTypes"
+        mc:Ignorable="d"
+        Title="Import Data"
+        Height="Auto"
+        Width="400"
+        WindowStyle="ThreeDBorderWindow"
+        ResizeMode="NoResize"
+        zfPimImporter:WindowBehavior.HideCloseButton="True"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical">
+                
+                <StackPanel Width="Auto" Height="Auto" Background="White" Name="TextInfoStack" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Background="White" Name="txtSomeBox" Margin="20" TextWrapping="Wrap"/>
+                    <TextBlock Background="White" Name="txtInfo" Margin="20,20,20,0" TextWrapping="Wrap"/>
+                    <TextBox Background="White" Name="txtTableInput" Margin="20,20,20,20" TextWrapping="Wrap"/>
+                    <TextBlock Background="White" Name="txtInfoConfidential" Margin="20,20,20,0" TextWrapping="Wrap"/>
+                    <TextBox TextChanged="TxtGroupdSomeBox_TextChanged" Height="Auto" AcceptsTab="True"  Background="White"  Name="txtConfidentialInput" Margin="20,20,20,20" TextWrapping="Wrap" AcceptsReturn="True"/>
+
+                </StackPanel>
+       
+                <ListView 
+                    Visibility="Collapsed"
+
+                    DockPanel.Dock="Top"
+                    Width="Auto"
+                    Height="270" SelectionChanged="SegementList_OnSelectionChanged" SelectionMode="Single" Name="SearchedTablesList" Margin="0,0,0,0">
+
+               
+                </ListView>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Button Width="150" Name="btnSaveData" Margin="10" Click="btnSaveData_Click" Content="Publish"/>
+                    <Button Width="150" Name="btnTryColumn" Margin="10" Click="btnTryColumn_Click" Content="Ok"/>
+                    <Button Width="150" Name="btnAbortData" Margin="10" Click="btnSaveData_Click" Content="Cancel"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

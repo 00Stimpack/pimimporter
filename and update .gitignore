@@ -1,0 +1,189 @@
+[33mcommit 90f855d1036fe5ba7da7af2449c443384b66b75c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: silenter <harold@cppstudios.com>
+Date:   Tue Jul 16 12:35:08 2024 +0200
+
+    Exclude background folder from being pushed to GitHub
+
+ .../background/2019-12-27_ZF Cubix_4K_H264.mp4      | Bin [31m0[m -> [32m288941436[m bytes
+ zf-pim-importer/background/Spread01.jpg             | Bin [31m0[m -> [32m56570[m bytes
+ .../background/SwimmingSolarField_Draft01.mp4       | Bin [31m0[m -> [32m16610550[m bytes
+ zf-pim-importer/background/Test4k.jpg               | Bin [31m0[m -> [32m335256[m bytes
+ zf-pim-importer/background/TestHD.jpg               | Bin [31m0[m -> [32m145549[m bytes
+ 5 files changed, 0 insertions(+), 0 deletions(-)
+
+[33mcommit a0dda31113b58c4ee54dcbb8da2b86e4d0971553[m
+Author: silenter <harold@cppstudios.com>
+Date:   Tue Jul 16 12:28:17 2024 +0200
+
+    Track large files with Git LFS
+
+[33mcommit 5dd0f5695bf0f14e9ec6dd6ee43a41e4aa38f8f2[m
+Author: silenter <harold@cppstudios.com>
+Date:   Tue Jul 16 12:26:11 2024 +0200
+
+    Track large files with Git LFS
+
+ .gitattributes | 1 [32m+[m
+ 1 file changed, 1 insertion(+)
+
+[33mcommit fd96d60e7567da67ff38c57857ca1a1f968abb94[m
+Author: silenter <harold@cppstudios.com>
+Date:   Tue Jul 16 12:22:47 2024 +0200
+
+    Initial commit
+
+ zf-pim-importer/DataTypes/LanguageData.cs  | 22 [32m++++++++++++++++++++++[m
+ zf-pim-importer/DataTypes/LanguageType.cs  |  4 [32m+++[m[31m-[m
+ zf-pim-importer/IO/Starter.cs              | 28 [32m+++++++++++++++++++[m[31m---------[m
+ zf-pim-importer/Modal/MoreMaterial.xaml.cs |  6 [32m++++[m[31m--[m
+ 4 files changed, 48 insertions(+), 12 deletions(-)
+
+[33mcommit 81375638dbbdadaea0e3e6a034e3097d9ce55f37[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: silenterus <neo-neu@web.de>
+Date:   Thu Apr 18 13:36:44 2024 +0200
+
+    hot fix naming
+
+ zf-pim-importer/DataTypes/Fixed.cs         |   2 [32m+[m[31m-[m
+ zf-pim-importer/Modal/MoreMaterial.xaml    |  14 [32m++[m[31m--[m
+ zf-pim-importer/Modal/MoreMaterial.xaml.cs | 125 [32m+++++++++++++++++++[m[31m----------[m
+ 3 files changed, 91 insertions(+), 50 deletions(-)
+
+[33mcommit 6448ca43ae60e4827866fdf001256b96ed570ee0[m
+Author: silenterus <neo-neu@web.de>
+Date:   Wed Apr 17 22:54:00 2024 +0200
+
+    hotfix naming
+
+ zf-pim-importer/DataTypes/Fixed.cs         | 2 [32m+[m[31m-[m
+ zf-pim-importer/Modal/MoreMaterial.xaml.cs | 8 [32m++++[m[31m----[m
+ zf-pim-importer/Views/ProductPage.xaml     | 2 [32m+[m[31m-[m
+ 3 files changed, 6 insertions(+), 6 deletions(-)
+
+[33mcommit 0213f594468c173adc89d63398d0bf3c249ead9e[m
+Author: silenterus <neo-neu@web.de>
+Date:   Wed Apr 17 22:49:45 2024 +0200
+
+    add dynamic template
+
+ zf-pim-importer/DataTypes/Fixed.cs         |  4 [32m+[m[31m--[m
+ zf-pim-importer/DataTypes/Option.cs        | 11 [32m++++++[m
+ zf-pim-importer/Modal/MoreMaterial.xaml    | 39 [32m+++++++++++++++++[m[31m----[m
+ zf-pim-importer/Modal/MoreMaterial.xaml.cs | 54 [32m+++++++++++++++++++++++++++[m[31m---[m
+ zf-pim-importer/Views/ProductPage.xaml     |  2 [32m+[m[31m-[m
+ 5 files changed, 97 insertions(+), 13 deletions(-)
+
+[33mcommit f05b2fa27c89b9f8bab6a6ccab60dfb5d0b0c5a1[m
+Author: silenterus <neo-neu@web.de>
+Date:   Wed Mar 20 16:07:20 2024 +0100
+
+    updater version string
+
+ zf-pim-importer/DataTypes/Fixed.cs | 2 [32m+[m[31m-[m
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+[33mcommit 6b4bb6ac602e6b8d53ddc5dbce6b79642ec724f5[m
+Author: silenterus <neo-neu@web.de>
+Date:   Wed Mar 20 15:59:54 2024 +0100
+
+    fix details switch
+
+ zf-pim-importer/DataTypes/Fixed.cs         |   2 [32m+[m[31m-[m
+ zf-pim-importer/IO/PathGenerator.cs        |  31 [32m+++[m[31m----[m
+ zf-pim-importer/IO/Starter.cs              | 131 [32m+[m[31m----------------------------[m
+ zf-pim-importer/Modal/MoreMaterial.xaml.cs |  10 [32m+[m[31m--[m
+ 4 files changed, 19 insertions(+), 155 deletions(-)
+
+[33mcommit 6cd41af4689a61914003f73a80b3ac3551f8f7e5[m
+Author: silenterus <neo-neu@web.de>
+Date:   Tue Mar 12 15:55:45 2024 +0100
+
+    fixed options write bin
+
+ zf-pim-importer/DataTypes/Fixed.cs         |   7 [32m+[m[31m-[m
+ zf-pim-importer/DataTypes/LanguageData.cs  |   4 [32m+[m[31m-[m
+ zf-pim-importer/DataTypes/Option.cs        |   1 [32m+[m
+ zf-pim-importer/IO/DataSave.cs             |  43 [32m+++[m[31m---[m
+ zf-pim-importer/IO/ExcelReader.cs          |  19 [32m++[m[31m-[m
+ zf-pim-importer/Modal/ModalWindow.xaml.cs  |  75 [32m+++++++[m[31m---[m
+ zf-pim-importer/Modal/MoreMaterial.xaml    |   2 [32m+[m
+ zf-pim-importer/Modal/MoreMaterial.xaml.cs | 218 [32m++++++++++++[m[31m-----------------[m
+ zf-pim-importer/notice.txt                 |  20 [32m+++[m
+ 9 files changed, 207 insertions(+), 182 deletions(-)
+
+[33mcommit c8a0963ea0ee3ae016e26f0d568f22cb06a6e781[m
+Author: silenterus <neo-neu@web.de>
+Date:   Mon Mar 4 14:10:42 2024 +0100
+
+    change version
+
+ zf-pim-importer/DataTypes/Fixed.cs | 2 [32m+[m[31m-[m
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+[33mcommit 1d6bfe7145b572895d633f657daeb95012e73a69[m
+Author: silenterus <neo-neu@web.de>
+Date:   Wed Feb 28 18:52:04 2024 +0100
+
+    fix version fixed string
+
+ zf-pim-importer/DataTypes/Fixed.cs | 2 [32m+[m[31m-[m
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+[33mcommit 001a28ed890c6528d1b897f4d4426169bb428673[m
+Author: silenterus <neo-neu@web.de>
+Date:   Wed Feb 28 13:28:13 2024 +0100
+
+    fix Tooltips, Confidential Texts, Confidential Group save
+
+ zf-pim-importer/DataTypes/Fixed.cs         | 7 [32m+++++++[m
+ zf-pim-importer/DataTypes/Option.cs        | 2 [32m+[m[31m-[m
+ zf-pim-importer/Modal/ModalWindow.xaml.cs  | 4 [32m++[m[31m--[m
+ zf-pim-importer/Modal/MoreMaterial.xaml    | 4 [32m+++[m[31m-[m
+ zf-pim-importer/Modal/MoreMaterial.xaml.cs | 4 [32m++[m[31m--[m
+ 5 files changed, 15 insertions(+), 6 deletions(-)
+
+[33mcommit 3eb15caad908617cc69aa5d602b543cf64660d32[m
+Author: silenterus <neo-neu@web.de>
+Date:   Wed Feb 28 13:00:28 2024 +0100
+
+    remove ISerializable
+
+ zf-pim-importer/DataTypes/LanguageData.cs  |   2 [32m+[m[31m-[m
+ zf-pim-importer/DataTypes/Option.cs        | 112 [32m++++++++++++[m[31m-----------[m
+ zf-pim-importer/DataTypes/PimData.cs       |   2 [32m+[m[31m-[m
+ zf-pim-importer/DataTypes/PimJson.cs       |   2 [32m+[m[31m-[m
+ zf-pim-importer/DataTypes/SegmentJson.cs   |   2 [32m+[m[31m-[m
+ zf-pim-importer/Modal/ModalWindow.xaml     |   4 [32m+[m[31m-[m
+ zf-pim-importer/Modal/ModalWindow.xaml.cs  |   4 [32m+[m[31m-[m
+ zf-pim-importer/Modal/MoreMaterial.xaml    |  32 [32m+++++[m[31m--[m
+ zf-pim-importer/Modal/MoreMaterial.xaml.cs | 139 [32m++++++++++++[m[31m-----------------[m
+ zf-pim-importer/Project/ProjectData.cs     |   2 [32m+[m[31m-[m
+ 10 files changed, 145 insertions(+), 156 deletions(-)
+
+[33mcommit 93fa804673d625f5fc0de514eccfacbe08dd84d3[m
+Author: silenterus <neo-neu@web.de>
+Date:   Thu Feb 15 12:05:36 2024 +0100
+
+    add confidential toggle
+
+ .../Converters/ProductOrdinalIconConverter.cs      |   4 [32m+[m[31m-[m
+ zf-pim-importer/DataTypes/Fixed.cs                 |   6 [32m+[m
+ zf-pim-importer/DataTypes/PimData.cs               |   8 [32m+[m[31m-[m
+ zf-pim-importer/IO/ExcelReader.cs                  |  17 [32m++[m[31m-[m
+ zf-pim-importer/Modal/ModalWindow.xaml             |  10 [32m+[m[31m-[m
+ zf-pim-importer/Modal/ModalWindow.xaml.cs          |  31 [32m++++[m[31m--[m
+ zf-pim-importer/Modal/MoreMaterial.xaml            |  81 [32m+++++++++[m[31m-----[m
+ zf-pim-importer/Modal/MoreMaterial.xaml.cs         | 123 [32m+++++++++++++++++[m[31m----[m
+ 8 files changed, 205 insertions(+), 75 deletions(-)
+
+[33mcommit 3bde4c245fff5dbe10e83e9ac29a681bc2d5dcce[m
+Author: silenterus <neo-neu@web.de>
+Date:   Wed Feb 14 18:24:36 2024 +0100
+
+    implement scaling
+    implement confidential
+
+ .run/Builder.run.xml                               |   34 [31m-[m
+ .run/PreRunBuildAndCopy.run.xml                    |   31 [32m+[m
+ zf-pim-importer/App.xaml.cs                        |    3 [32m+[m
+ .../Convert
