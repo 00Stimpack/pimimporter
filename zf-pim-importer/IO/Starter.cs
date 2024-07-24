@@ -454,8 +454,8 @@ namespace ZFPimImporter.IO
                 new SegmentJson()
                 {
                     id = 6,
-                    name = "Bus",
-                    namelanguage = "Bus",
+                    name = "Bus & Coach",
+                    namelanguage = "Bus & Coach ",
                     enabled = true,
                     subheadlinelanguage  = new []{"" ,"","" ,"",""},
                     subheadline  = new []{"" ,"","" ,"",""},
